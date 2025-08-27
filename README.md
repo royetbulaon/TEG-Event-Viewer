@@ -1,4 +1,4 @@
-TEG.Test
+TEG.Test Solution
 
 Overview:
 This solution contains a Web MVC application and a Web API for managing and displaying events and venues. 

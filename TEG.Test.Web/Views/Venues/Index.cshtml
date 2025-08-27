@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "Venues";
+    var apiBaseUrl = ViewBag.ApiBaseUrl; // from controller/web.config
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body">
+                    <h2 class="mb-4 text-center">Venue List</h2>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle" id="venuesTable">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Location</th>
+                                    <th>Capacity</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Rows will be loaded via AJAX -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var apiBaseUrl = '@apiBaseUrl'; // comes from web.config
+
+            $.ajax({
+                url: apiBaseUrl + '/api/venues',
+                type: 'GET',
+                success: function (venues) {
+                    console.log("API response:", venues); // debug
+
+                    let rows = '';
+                    $.each(venues, function (i, venue) {
+                        rows += `
+                            <tr>
+                                <td>${venue.id}</td>
+                                <td>${venue.name}</td>
+                                <td>${venue.location}</td>
+                                <td>${venue.capacity}</td>
+                                <td class="text-center">
+                                    <a href="/Events/ByVenue/${venue.id}"
+                                       class="btn btn-sm btn-outline-success">
+                                        View Events
+                                    </a>
+                                </td>
+                            </tr>`;
+                    });
+                    $('#venuesTable tbody').html(rows);
+                },
+                error: function (xhr) {
+                    console.error("API error:", xhr);
+                    $('#venuesTable tbody').html(
+                        '<tr><td colspan="5" class="text-center text-danger">Failed to load venues.</td></tr>'
+                    );
+                }
+            });
+        });
+    </script>
+}

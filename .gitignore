@@ -1,0 +1,82 @@
+# Build Folders
+bin/
+obj/
+out/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# NuGet
+*.nupkg
+# NuGet Packages folder
+packages/
+# NuGet config file
+*.nuget.config
+
+# ASP.NET / ASP.NET Core
+wwwroot/lib/
+*.log
+logs/
+*.vsix
+
+# ASP.NET Core publishes
+publish/
+*.dotCover
+*.dotCover.json
+
+# Web specific
+node_modules/
+bower_components/
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+*.xunit.xml
+*.html
+*.result.xml
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# User-specific files
+*.rsuser
+*.userprefs
+
+# Rider project files
+.idea/
+
+# Azure DevOps / JetBrains Rider
+.idea/
+*.sln.iml
+
+# Ignore build artifacts
+*.exe
+*.dll
+*.pdb
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Class Library / Shared Projects
+*.csproj.user
+*.dbmdl
+*.pfx
+
+# Others
+*.vsconfig
+*.vsmdi

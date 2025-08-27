@@ -1,0 +1,122 @@
+﻿@model EventsByVenueViewModel
+@{
+    ViewData["Title"] = "Events by Venue";
+    var baseUrl = ViewBag.ApiBaseUrl; // API base URL from config
+    var venueId = Model.VenueId;   // from model
+}
+
+<div class="container py-5">
+    <h2 class="mb-4 text-center"> Events</h2>
+
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body">
+            <div id="calendar"></div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eventModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="eventModalBody">
+                    <!-- content will be loaded dynamically -->
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+@section Scripts {
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+    <script>
+           document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+
+            // Fetch all events from API
+            fetch('@(baseUrl)/api/venues/@venueId/events')
+                .then(response => response.json())
+                .then(eventsData => {
+                    var calendarEvents = eventsData.map(ev => ({
+                        id: ev.id,
+                        title: ev.name,
+                        start: ev.startDate
+                    }));
+
+                    // Find the most recent event date
+                        var mostRecentEvent = new Date(
+                            Math.max(...calendarEvents.map(e => new Date(e.start)))
+                        );
+
+                    var calendar = new FullCalendar.Calendar(calendarEl, {
+                        initialView: 'dayGridMonth',
+                         initialDate: mostRecentEvent, // set to the most recent event
+                        themeSystem: 'bootstrap5',
+                        height: 'auto',
+                        headerToolbar: {
+                            left: 'prevYear,prev,next,nextYear today',
+                            center: 'title',
+                            right: 'dayGridMonth,listMonth'
+                        },
+                        events: calendarEvents,
+                        eventClick: function(info) {
+                            info.jsEvent.preventDefault();
+
+                            var modalEl = document.getElementById('eventModal');
+                            var modalTitle = document.getElementById('eventModalLabel');
+                            var modalBody = document.getElementById('eventModalBody');
+
+                            modalTitle.textContent = 'Loading...';
+                            modalBody.innerHTML = '<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>';
+
+                            var myModal = new bootstrap.Modal(modalEl);
+                            myModal.show();
+
+                            // Fetch event details
+                            fetch(`@(baseUrl)/api/events/${info.event.id}`)
+                                .then(response => {
+                                    if (!response.ok) throw new Error('Network response was not ok');
+                                    return response.json();
+                                })
+                                .then(event => {
+                                    var html = `
+                                        <p class="text-muted mb-2">Event ID: ${event.id}</p>
+                                        <ul class="list-group list-group-flush mb-3">
+                                            <li class="list-group-item"><strong>Date:</strong> ${new Date(event.startDate).toLocaleString()}</li>
+                                            <li class="list-group-item"><strong>Location:</strong> ${event.venue?.name || 'N/A'}</li>
+                                        </ul>
+                                        ${event.description ? `<div class="mb-3"><h5>Description</h5><p>${event.description}</p></div>` : '<p class="text-muted fst-italic">No description available.</p>'}
+                                        <div class="d-flex justify-content-between">
+                                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Back to Events</button>
+                                            <a href="/Venues" class="btn btn-primary">Change Venue</a>
+                                        </div>
+                                    `;
+                                    modalTitle.textContent = event.name;
+                                    modalBody.innerHTML = html;
+                                })
+                                .catch(error => {
+                                    modalTitle.textContent = 'Error';
+                                    modalBody.innerHTML = '<p class="text-danger">Unable to load event details.</p>';
+                                    console.error('Fetch error:', error);
+                                });
+                        }
+                    });
+
+                    calendar.render();
+                })
+                .catch(error => {
+                    console.error('Error fetching events:', error);
+                });
+        });
+    </script>
+}

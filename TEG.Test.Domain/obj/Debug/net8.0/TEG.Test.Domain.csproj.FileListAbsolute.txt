@@ -1,0 +1,12 @@
+C:\Users\RoyetBulaon\Downloads\TEG\Royet\Repo\TEG.Test.Domain\bin\Debug\net8.0\TEG.Test.Domain.deps.json
+C:\Users\RoyetBulaon\Downloads\TEG\Royet\Repo\TEG.Test.Domain\bin\Debug\net8.0\TEG.Test.Domain.dll
+C:\Users\RoyetBulaon\Downloads\TEG\Royet\Repo\TEG.Test.Domain\bin\Debug\net8.0\TEG.Test.Domain.pdb
+C:\Users\RoyetBulaon\Downloads\TEG\Royet\Repo\TEG.Test.Domain\obj\Debug\net8.0\TEG.Test.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\RoyetBulaon\Downloads\TEG\Royet\Repo\TEG.Test.Domain\obj\Debug\net8.0\TEG.Test.Domain.AssemblyInfoInputs.cache
+C:\Users\RoyetBulaon\Downloads\TEG\Royet\Repo\TEG.Test.Domain\obj\Debug\net8.0\TEG.Test.Domain.AssemblyInfo.cs
+C:\Users\RoyetBulaon\Downloads\TEG\Royet\Repo\TEG.Test.Domain\obj\Debug\net8.0\TEG.Test.Domain.csproj.CoreCompileInputs.cache
+C:\Users\RoyetBulaon\Downloads\TEG\Royet\Repo\TEG.Test.Domain\obj\Debug\net8.0\TEG.Test.Domain.sourcelink.json
+C:\Users\RoyetBulaon\Downloads\TEG\Royet\Repo\TEG.Test.Domain\obj\Debug\net8.0\TEG.Test.Domain.dll
+C:\Users\RoyetBulaon\Downloads\TEG\Royet\Repo\TEG.Test.Domain\obj\Debug\net8.0\refint\TEG.Test.Domain.dll
+C:\Users\RoyetBulaon\Downloads\TEG\Royet\Repo\TEG.Test.Domain\obj\Debug\net8.0\TEG.Test.Domain.pdb
+C:\Users\RoyetBulaon\Downloads\TEG\Royet\Repo\TEG.Test.Domain\obj\Debug\net8.0\ref\TEG.Test.Domain.dll
